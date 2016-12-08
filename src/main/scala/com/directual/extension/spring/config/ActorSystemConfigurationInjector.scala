@@ -16,13 +16,13 @@ trait ActorSystemConfigurationInjector {
   @Autowired
   implicit var ctx: ApplicationContext = _
 
-  @Bean
+  /*@Bean
   def actorSystem(config:Config = ConfigFactory.load()) = {
     val system = ActorSystem(config.getString("directual.akking.cluster.name"), config)
-    SpringCtxExt(system).init(ctx)
+    SpringCtxExt(system)
     system
   }
 
   @Bean
-  def config():Config
+  def config():Config*/
 }
