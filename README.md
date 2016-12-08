@@ -1,4 +1,4 @@
-# Scala Akka Extension
+# Spring Akka Extension
 
 ## Usage
 
