@@ -1,7 +1,9 @@
 package com.directual.extension.spring
 
 import akka.actor.{ActorSystem, Extension, Props, _}
+import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
+
 import collection.JavaConverters._
 
 /**
@@ -16,7 +18,7 @@ class SpringCtxExtImpl(val system:ExtendedActorSystem) extends Extension {
 
   system.log.info("Created SpringContext Extension")
 
-  def springContext: AnnotationConfigApplicationContext = applicationContext
+  def springContext: ApplicationContext = applicationContext
 
   def props(actorBeanName: String): Props = Props(classOf[ActorProducer], applicationContext, actorBeanName)
 
