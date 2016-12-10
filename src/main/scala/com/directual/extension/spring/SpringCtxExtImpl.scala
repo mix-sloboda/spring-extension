@@ -1,6 +1,7 @@
 package com.directual.extension.spring
 
 import akka.actor.{ActorSystem, Extension, Props, _}
+import com.typesafe.config.Config
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
@@ -9,9 +10,11 @@ import collection.JavaConverters._
 /**
  * The Extension implementation.
  */
+
 class SpringCtxExtImpl(val system:ExtendedActorSystem) extends Extension {
 
-  private[this] val packagesToScan = system.settings.config.getStringList("spring-context.extension.packages-to-scan").asScala
+  def packagesToScan = system.settings.config.getStringList("spring-context.extension.packages-to-scan").asScala
+
   private[this] val applicationContext = new AnnotationConfigApplicationContext(packagesToScan:_*) {
     override def setClassLoader(classLoader: ClassLoader): Unit = system.dynamicAccess.classLoader
   }

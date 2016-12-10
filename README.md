@@ -1,4 +1,4 @@
-# Spring Akka Extension
+# Using Spring in Akka Extension
 
 ## Usage
 
