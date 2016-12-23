@@ -2,8 +2,6 @@ package com.directual.extension.spring
 
 import akka.actor.{ActorSystem, Extension, Props, _}
 import org.springframework.context.ApplicationContext
-import org.springframework.context.annotation.AnnotationConfigApplicationContext
-import org.springframework.context.support.{GenericApplicationContext, StaticApplicationContext}
 
 import scala.collection.JavaConverters._
 
@@ -16,13 +14,11 @@ class SpringCtxExtImpl(val system:ExtendedActorSystem) extends Extension {
 
   def packagesToScan = system.settings.config.getStringList("spring-context.extension.packages-to-scan").asScala
 
-  private[this] val applicationContext = new AkkaApplicationContext(system, packagesToScan:_*)
+  val springContext = new AkkaAwareAnnotationConfigApplicationContext(system, packagesToScan:_*)
 
   system.log.info("Created SpringContext Extension")
 
-  def springContext: ApplicationContext = applicationContext
-
-  def props(actorBeanName: String): Props = Props(classOf[ActorProducer], applicationContext, actorBeanName)
+  def props(actorBeanName: String): Props = Props(classOf[ActorProducer], springContext, actorBeanName)
 
   def actorOf(actorBeanName: String):ActorRef = actorOf(actorBeanName, actorBeanName)
 

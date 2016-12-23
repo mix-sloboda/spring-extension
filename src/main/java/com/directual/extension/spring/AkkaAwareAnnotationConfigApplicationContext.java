@@ -6,9 +6,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 /**
  * Created on 23/12/2016.
  */
-public class AkkaApplicationContext extends AnnotationConfigApplicationContext {
+public class AkkaAwareAnnotationConfigApplicationContext extends AnnotationConfigApplicationContext {
 
-    public AkkaApplicationContext(ExtendedActorSystem actorSystem, String... basePackages) {
+    public AkkaAwareAnnotationConfigApplicationContext(ExtendedActorSystem actorSystem, String... basePackages) {
         super();
         super.setClassLoader(actorSystem.dynamicAccess().classLoader());
         this.getBeanFactory().registerSingleton("ActorSystem", actorSystem);

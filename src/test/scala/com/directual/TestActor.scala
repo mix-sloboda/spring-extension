@@ -14,6 +14,6 @@ class TestActor @Autowired() (val service:Service) extends Actor {
   override def receive: Receive = {
     case msg =>
       println(self.path.elements.last +  " RECEIVE " +  msg + " " + service.doIt())
-      //sender() ! service.doIt()
+      sender() ! service.doIt()
   }
 }
