@@ -1,23 +1,22 @@
 package com.directual.extension.spring
 
 import akka.actor.{ActorSystem, Extension, Props, _}
-import com.typesafe.config.Config
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
+import org.springframework.context.support.{GenericApplicationContext, StaticApplicationContext}
 
-import collection.JavaConverters._
+import scala.collection.JavaConverters._
 
 /**
  * The Extension implementation.
  */
 
+
 class SpringCtxExtImpl(val system:ExtendedActorSystem) extends Extension {
 
   def packagesToScan = system.settings.config.getStringList("spring-context.extension.packages-to-scan").asScala
 
-  private[this] val applicationContext = new AnnotationConfigApplicationContext(packagesToScan:_*) {
-    override def setClassLoader(classLoader: ClassLoader): Unit = system.dynamicAccess.classLoader
-  }
+  private[this] val applicationContext = new AkkaApplicationContext(system, packagesToScan:_*)
 
   system.log.info("Created SpringContext Extension")
 
