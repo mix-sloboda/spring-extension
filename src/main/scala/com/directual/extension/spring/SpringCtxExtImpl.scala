@@ -1,7 +1,6 @@
 package com.directual.extension.spring
 
 import akka.actor.{ActorSystem, Extension, Props, _}
-import org.springframework.context.ApplicationContext
 
 import scala.collection.JavaConverters._
 
